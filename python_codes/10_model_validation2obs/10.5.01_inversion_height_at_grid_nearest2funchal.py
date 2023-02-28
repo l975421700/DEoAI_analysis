@@ -44,7 +44,7 @@ fontprop_tnr = fm.FontProperties(
 # mpl.rcParams['font.family'] = fontprop_tnr.get_name()
 mpl.rcParams['figure.dpi'] = 600
 mpl.rc('font', family='Times New Roman', size=10)
-mpl.rcParams['backend'] = 'Qt4Agg'  #
+# mpl.rcParams['backend'] = 'Qt4Agg'  #
 # mpl.get_backend()
 
 plt.rcParams.update({"mathtext.fontset": "stix"})
@@ -154,7 +154,7 @@ from DEoAI_analysis.module.spatial_analysis import(
 filelist = np.array(sorted(glob.glob(
     'scratch/inversion_height/madeira3d/inversion_height_madeira3d_20*.nc')))
 inversion_height_madeira3d = xr.open_mfdataset(
-    filelist[0:2], concat_dim="time",
+    filelist[0:2],
     data_vars='minimal', coords='minimal', compat='override')
 funchal_loc = np.array([32.6333, -16.9000])
 nearestgrid_indices = find_nearest_grid(
@@ -171,8 +171,7 @@ funchal_df_drvd = pd.read_pickle(
     'scratch/radiosonde/igra2/funchal_df_drvd.pkl')
 date = pd.DatetimeIndex(np.unique(funchal_df_drvd.date))
 
-i = 853
-outputfile = 'figures/00_test/trial.png'
+i = 1549
 altitude = funchal_df_drvd.iloc[
     np.where(funchal_df_drvd.date == date[i])[0]][
     'calculated_height'].values
@@ -195,18 +194,23 @@ dinv_sim = inversion_layer(temperature_sim[::-1], altitude_sim[::-1])
 teminv_sim = temperature_sim[np.where(altitude_sim == dinv_sim)]
 
 #### plot
+# outputfile = 'figures/00_test/trial.png'
+outputfile = 'figures/10_validation2obs/10_04_radiosonde/10_04.0.3 vertical sounding profile at Funchal and in model simulation 2010080612.png'
 fig, ax = plt.subplots(1, 1, figsize=np.array([8.8, 8]) / 2.54, dpi=600)
 
 plt_line = ax.plot(
-    temperature, altitude, '.-', color='black', lw=0.5, markersize=2.5)
+    temperature, altitude, '.-', color='red', lw=0.5,
+    markersize=2.5, alpha=0.5)
 plt_line2 = ax.plot(
-    temperature_sim, altitude_sim, '.-', color='gray', lw=0.5, markersize=2.5)
+    temperature_sim, altitude_sim, '.-', color='black', lw=0.5,
+    markersize=2.5, alpha=0.5)
 if (not np.isnan(dinv)):
-    plt_scatter = ax.scatter(teminv, dinv, s=5, c = 'red', zorder = 10)
-    plt_scatter2 = ax.scatter(teminv_sim, dinv_sim, s=5, c='blue', zorder=10)
+    plt_scatter = ax.scatter(
+        teminv, dinv, marker='s', s=12, c = 'red', zorder = 10)
+    plt_scatter2 = ax.scatter(
+        teminv_sim, dinv_sim, marker='s', s=12, c='black', zorder=10)
 plt_text = ax.text(
-    265, 4500,
-    '#' + str(i) + '   ' +
+    275, 4500,
     str(date[i])[0:10] + ' ' + str(date[i])[11:13] + ':00 UTC',)
 ax.set_yticks(np.arange(0, 5.1, 0.5) * 1000)
 # ax.set_yticklabels(np.arange(0, 5.1, 0.5))
@@ -236,7 +240,7 @@ madeira3d_filelist = \
 madeira3d_filelist = np.array(sorted(glob.glob(
     '/store/c2sm/pr04/jvergara/RUNS_IN_SCRATCH/MAC1/lm_f/3D_Madeira/lfsd20*[0-9].nc')))
 madeira3d_sim = xr.open_mfdataset(
-    madeira3d_filelist, concat_dim="time", data_vars='minimal', coords='minimal', compat="override")
+    madeira3d_filelist, data_vars='minimal', coords='minimal', compat="override")
 
 '''
 # endregion
@@ -250,7 +254,7 @@ madeira3d_sim = xr.open_mfdataset(
 filelist = np.array(sorted(glob.glob(
     'scratch/inversion_height/madeira3d/inversion_height_madeira3d_20*.nc')))
 inversion_height_madeira3d = xr.open_mfdataset(
-    filelist[0:2], concat_dim="time",
+    filelist[0:2],
     data_vars='minimal', coords='minimal', compat='override')
 funchal_loc = np.array([32.6333, -16.9000])
 nearestgrid_indices = find_nearest_grid(
@@ -339,7 +343,7 @@ ani.save(
 filelist = np.array(sorted(glob.glob(
     'scratch/inversion_height/madeira3d/inversion_height_madeira3d_20*.nc')))
 inversion_height_madeira3d = xr.open_mfdataset(
-    filelist, concat_dim="time",
+    filelist,
     data_vars='minimal', coords='minimal', compat='override')
 funchal_loc = np.array([32.6333, -16.9000])
 nearestgrid_indices = find_nearest_grid(
@@ -415,7 +419,7 @@ funchal_inversion_height = pd.read_pickle(
 filelist = np.array(sorted(glob.glob(
     'scratch/inversion_height/madeira3d/inversion_height_madeira3d_20*.nc')))
 inversion_height_madeira3d = xr.open_mfdataset(
-    filelist, concat_dim="time",
+    filelist,
     data_vars='minimal', coords='minimal', compat='override')
 
 #### Extract data closest to Funchal
@@ -895,7 +899,7 @@ fig.savefig('figures/00_test/trial.png')
 filelist = np.array(sorted(glob.glob(
     'scratch/inversion_height/madeira3d/inversion_height_madeira3d_20*.nc')))
 inversion_height_madeira3d = xr.open_mfdataset(
-    filelist, concat_dim="time",
+    filelist,
     data_vars='minimal', coords='minimal', compat='override')
 funchal_loc = np.array([32.6333, -16.9000])
 nearestgrid_indices = find_nearest_grid(
@@ -968,7 +972,7 @@ hourly_inversion_height = pd.read_pickle(
 
 inversion_height_madeira3d = xr.open_mfdataset(
     'scratch/inversion_height/madeira3d/inversion_height_madeira3d_20*.nc',
-    concat_dim="time", data_vars='minimal', coords='minimal', compat='override')
+    data_vars='minimal', coords='minimal', compat='override')
 inversion_height_nearestgrid = pd.DataFrame(
     data=inversion_height_madeira3d.inversion_height[:, 4, 25].values,
     index=inversion_height_madeira3d.time.values,
@@ -1005,7 +1009,7 @@ np.std(monthly_height[(monthly_height > 58) & (monthly_height <=3500)])
 filelist = np.array(sorted(glob.glob(
     'scratch/inversion_height/madeira3d/inversion_height_madeira3d_20*.nc')))
 inversion_height_madeira3d = xr.open_mfdataset(
-    filelist, concat_dim="time",
+    filelist,
     data_vars='minimal', coords='minimal', compat='override')
 time = pd.DatetimeIndex(inversion_height_madeira3d.time.values)
 
@@ -1089,7 +1093,7 @@ hourly_inversion_height_se = pd.read_pickle(
 
 inversion_height_madeira3d = xr.open_mfdataset(
     'scratch/inversion_height/madeira3d/inversion_height_madeira3d_20*.nc',
-    concat_dim="time", data_vars='minimal', coords='minimal', compat='override')
+    data_vars='minimal', coords='minimal', compat='override')
 time = pd.DatetimeIndex(inversion_height_madeira3d.time.values)
 
 small_e_center = [

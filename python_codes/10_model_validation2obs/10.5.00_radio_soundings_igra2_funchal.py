@@ -44,7 +44,7 @@ fontprop_tnr = fm.FontProperties(
 # mpl.rcParams['font.family'] = fontprop_tnr.get_name()
 mpl.rcParams['figure.dpi'] = 600
 mpl.rc('font', family='Times New Roman', size=10)
-mpl.rcParams['backend'] = 'Qt4Agg'  #
+# mpl.rcParams['backend'] = 'Qt4Agg'  #
 # mpl.get_backend()
 
 plt.rcParams.update({"mathtext.fontset": "stix"})
@@ -308,8 +308,8 @@ funchal_inversion_height = pd.read_pickle(
 
 # i=22
 # outputfile = 'figures/00_test/trial.png'
-i=25
-outputfile = 'figures/00_test/trial1.png'
+i=1549
+outputfile = 'figures/00_test/trial.png'
 
 fig, ax = plt.subplots(1, 1, figsize=np.array([8.8, 8]) / 2.54, dpi=600)
 

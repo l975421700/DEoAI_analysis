@@ -40,7 +40,7 @@ fontprop_tnr = fm.FontProperties(
 # mpl.rcParams['font.family'] = fontprop_tnr.get_name()
 mpl.rcParams['figure.dpi'] = 600
 mpl.rc('font', family='Times New Roman', size=10)
-mpl.rcParams['backend'] = 'Qt4Agg'  #
+# mpl.rcParams['backend'] = 'Qt4Agg'  #
 # mpl.get_backend()
 
 plt.rcParams.update({"mathtext.fontset": "stix"})
@@ -150,9 +150,10 @@ ax.set_yticklabels(np.arange(0, 3.1, 0.5), size=8)
 ax.set_xlabel("Kelvin [K]", size=10)
 ax.set_ylabel("Height [km]", size=10)
 
+# output_png = 'figures/06_inversion_layer/6.0.0 inversion layer in 201008.png'
+output_png = 'figures/00_test/trial.png'
 fig.subplots_adjust(left=0.14, right=0.95, bottom=0.2, top=0.99)
-fig.savefig(
-    'figures/06_inversion_layer/6.0.0 inversion layer in 201008.png', dpi=1200)
+fig.savefig(output_png, dpi=1200)
 plt.close('all')
 
 '''

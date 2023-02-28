@@ -35,7 +35,7 @@ fontprop_tnr = fm.FontProperties(
 # mpl.rcParams['font.family'] = fontprop_tnr.get_name()
 mpl.rcParams['figure.dpi'] = 600
 mpl.rc('font', family='Times New Roman', size=10)
-mpl.rcParams['backend'] = "Qt4Agg"
+# mpl.rcParams['backend'] = "Qt4Agg"
 # mpl.get_backend()
 
 plt.rcParams.update({"mathtext.fontset": "stix"})
@@ -100,8 +100,6 @@ from DEoAI_analysis.module.spatial_analysis import(
 # =============================================================================
 # region madeira pressure calculation
 
-# 3D_Tenerife; 3D_GC
-
 with xr.open_dataset(
         folder_1km + '3D_Madeira/lfsd20051101000000c.nc') as madeira_3d_const:
     rlon = madeira_3d_const.rlon.data
@@ -119,7 +117,7 @@ for k in [9]:
     filelist_madeira_3d = sorted(glob.glob(
         folder_1km + '3D_Madeira/lfsd20' + years[k] + '*[0-9].nc'))
     madeira_3d = xr.open_mfdataset(
-        filelist_madeira_3d, concat_dim="time", data_vars='minimal',
+        filelist_madeira_3d, data_vars='minimal',
         coords='minimal', compat='override')
     print("data loaded  " + str(datetime.datetime.now() - begin_time))
     
@@ -213,7 +211,7 @@ for k in np.arange(8, len(years)):
     filelist_tenerife_3d = sorted(glob.glob(
         folder_1km + '3D_Tenerife/lfsd20' + years[k] + '*[0-9].nc'))
     tenerife_3d = xr.open_mfdataset(
-        filelist_tenerife_3d, concat_dim="time", data_vars='minimal',
+        filelist_tenerife_3d, data_vars='minimal',
         coords='minimal', compat='override')
     print("data loaded  " + str(datetime.datetime.now() - begin_time))
     
@@ -288,7 +286,7 @@ for k in np.arange(8, len(years)):
     filelist_canary_3d = sorted(glob.glob(
         folder_1km + '3D_GC/lfsd20' + years[k] + '*[0-9].nc'))
     canary_3d = xr.open_mfdataset(
-        filelist_canary_3d, concat_dim="time", data_vars='minimal',
+        filelist_canary_3d, data_vars='minimal',
         coords='minimal', compat='override')
     print("data loaded  " + str(datetime.datetime.now() - begin_time))
     
